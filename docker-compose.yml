@@ -1,0 +1,29 @@
+services:
+  nuxt-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    expose:
+      - 3000
+    restart: unless-stopped
+    networks:
+      - nuxt-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - nuxt-app
+    restart: unless-stopped
+    networks:
+      - nuxt-network
+
+networks:
+  nuxt-network:
+    driver: bridge
