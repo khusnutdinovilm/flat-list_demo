@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     # Разрешаем записи в pull-requests для GITHUB_TOKEN
     permissions:
+      contents: write
       pull-requests: write
     steps:
       - name: Checkout code
