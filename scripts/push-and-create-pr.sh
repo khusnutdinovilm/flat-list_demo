@@ -9,23 +9,23 @@ BRANCH_NAME=$1
 
 if [[ $BRANCH_NAME == feature/* ]]; then
     BRANCH_TYPE="feature"
-    TARGET_BRANCH=("develop")
-    LABLE="feature"
+    TARGET_BRANCHES=("dev")
+    LABELS=("feature")
 elif [[ $BRANCH_NAME == release/* ]]; then
     BRANCH_TYPE="release"
-    TARGET_BRANCH=("master", "develop")
-    LABLE="release"
+    TARGET_BRANCHES=("main" "dev")
+    LABELS=("release" "backmerge")
 elif [[ $BRANCH_NAME == hotfix/* ]]; then
     BRANCH_TYPE="hotfix"
-    TARGET_BRANCH=("master", "develop")
-    LABLE="hotfix"
+    TARGET_BRANCHES=("main" "dev")
+    LABELS=("hotfix" "backmerge")
 else
     echo "Branch type not recognized. Please use feature/, release/, or hotfix/."
     exit 1
 fi
 
 echo "Pushing branch $BRANCH_NAME to origin..."
-git push --set-upstream origin $BRANCH_NAME
+git push --set-upstream origin "$BRANCH_NAME"
 
 for i in "${!TARGET_BRANCHES[@]}"; do
     TARGET_BRANCH="${TARGET_BRANCHES[$i]}"
@@ -38,7 +38,7 @@ for i in "${!TARGET_BRANCHES[@]}"; do
         continue
     fi
 
-    if [ "$TARGET_BRANCH" == "master" ]; then
+    if [ "$TARGET_BRANCH" == "main" ]; then
         DEFAULT_TITLE="Merge $BRANCH_NAME into $TARGET_BRANCH"
         DEFAULT_BODY="This is an automated pull request for $BRANCH_TYPE."
     else
