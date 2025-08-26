@@ -26,8 +26,8 @@ jobs:
             echo "TARGET_BRANCH=master" >> $GITHUB_ENV
             echo "PR_TITLE=Hotfix ${GITHUB_REF#refs/heads/hotfix/} to master" >> $GITHUB_ENV
           else
-            echo "TARGET_BRANCH=develop" >> $GITHUB_ENV
-            echo "PR_TITLE=Feature ${GITHUB_REF#refs/heads/feature/} to develop" >> $GITHUB_ENV
+            echo "TARGET_BRANCH=dev" >> $GITHUB_ENV
+            echo "PR_TITLE=Feature ${GITHUB_REF#refs/heads/feature/} to dev" >> $GITHUB_ENV
           fi
 
       - name: Create Pull Request using GitHub CLI
