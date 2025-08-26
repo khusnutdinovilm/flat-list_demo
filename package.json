@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "echo 'no lint\n'",
-    "test": "echo 'no test\n'"
+    "test": "echo 'no test\n'",
+    "push": "./scripts/push-and-create-pr.sh"
   },
   "dependencies": {
     "nuxt": "^4.0.3",
