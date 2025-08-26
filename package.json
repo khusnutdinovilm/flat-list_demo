@@ -9,11 +9,23 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "echo 'no lint\n'",
-    "test": "echo 'no test\n'"
+    "test": "echo 'no test\n'",
+    "push": "./scripts/push-and-create-pr.sh"
   },
   "dependencies": {
     "nuxt": "^4.0.3",
     "vue": "^3.5.20",
     "vue-router": "^4.5.1"
-  }
+  },
+  "devDependencies": {
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "standard-version": "^9.5.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "version": "0.1.0"
 }
