@@ -50,6 +50,8 @@ for i in "${!TARGET_BRANCHES[@]}"; do
     if [ -z "$PR_TITLE" ]; then
         PR_TITLE="$DEFAULT_TITLE"
     fi
+
+    echo
     
     read -p "Enter PR description for $TARGET_BRANCH (or press Enter for default): " PR_BODY
     if [ -z "$PR_BODY" ]; then
