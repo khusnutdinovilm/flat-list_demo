@@ -1,0 +1,42 @@
+name: Auto Create Pull Request
+
+on:
+  push:
+    branches:
+      - "feature/**"
+      - "release/**"
+      - "hotfix/**"
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    # Разрешаем записи в pull-requests для GITHUB_TOKEN
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Determine target branch based on source branch
+        run: |
+          if [[ "${{ github.ref }}" == refs/heads/release/* ]]; then
+            echo "TARGET_BRANCH=master" >> $GITHUB_ENV
+            echo "PR_TITLE=Release ${GITHUB_REF#refs/heads/release/} to master" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == refs/heads/hotfix/* ]]; then
+            echo "TARGET_BRANCH=master" >> $GITHUB_ENV
+            echo "PR_TITLE=Hotfix ${GITHUB_REF#refs/heads/hotfix/} to master" >> $GITHUB_ENV
+          else
+            echo "TARGET_BRANCH=develop" >> $GITHUB_ENV
+            echo "PR_TITLE=Feature ${GITHUB_REF#refs/heads/feature/} to develop" >> $GITHUB_ENV
+          fi
+
+      - name: Create Pull Request using GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base "${{ env.TARGET_BRANCH }}" \
+            --head "${{ github.ref_name }}" \
+            --title "${{ env.PR_TITLE }}" \
+            --body "This is an automated pull request created from ${{ github.ref_name }}. Please review and merge." \
+            --label "automated-pr"
