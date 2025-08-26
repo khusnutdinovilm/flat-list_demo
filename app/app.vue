@@ -1,5 +1,5 @@
 <template>
-  <div>SURPRISE, MOTHERFUCKER:)</div>
+  <div>SURPRISE, MOTHERFUCKER!:)</div>
 </template>
 
 <script setup lang="ts">
