@@ -24,8 +24,4 @@ jobs:
         run: npm ci
 
       - name: Run linting
-<<<<<<< Updated upstream
-        run: echo "Good!"
-=======
-        run: npm run lint
->>>>>>> Stashed changes
+        run: npm run test
